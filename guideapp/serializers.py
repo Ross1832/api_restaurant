@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import MultilingualText, Feedback
+from rest_framework import generics
 
 
 class MultilingualTextSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultilingualText
-        fields = "__all__"
+        fields = ['key', 'languages', 'content']
 
 
 class FeedbackSerializer(serializers.ModelSerializer):

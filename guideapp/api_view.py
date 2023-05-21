@@ -12,7 +12,27 @@ from django.contrib.auth import authenticate
 
 
 class MultilingualTextList(generics.ListCreateAPIView):
-    queryset = MultilingualText
+    serializer_class = MultilingualTextSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned translations to a given language,
+        by filtering against a `languages` query parameter in the URL.
+        """
+        queryset = MultilingualText.objects.all()
+        language = self.request.query_params.get('languages', None)
+        if language is not None:
+            queryset = queryset.filter(languages=language)
+        return queryset
+
+
+class MultilingualTextListCreateView(generics.ListCreateAPIView):
+    queryset = MultilingualText.objects.all()
+    serializer_class = MultilingualTextSerializer
+
+
+class MultilingualTextRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MultilingualText.objects.all()
     serializer_class = MultilingualTextSerializer
 
 

@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class MultilingualText(models.Model):
+    key = models.CharField(max_length=255)
     languages = models.CharField(max_length=2, choices=[
         ('en', _('English')),
         ('es', _('Spanish')),
@@ -10,10 +11,10 @@ class MultilingualText(models.Model):
     content = models.TextField()
 
     class Meta:
-        unique_together = ('languages',)
+        unique_together = ('key', 'languages')  # updated this line
 
     def __str__(self):
-        return f'{self.languages} - {self.content}'
+        return f'{self.key} - {self.languages} - {self.content}'
 
 
 class Feedback(models.Model):
