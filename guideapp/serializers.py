@@ -1,6 +1,8 @@
+from django.http import JsonResponse
 from rest_framework import serializers
 from .models import MultilingualText, Feedback
 from rest_framework import generics
+from collections import defaultdict
 
 
 class MultilingualTextSerializer(serializers.ModelSerializer):

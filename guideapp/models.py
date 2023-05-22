@@ -7,6 +7,7 @@ class MultilingualText(models.Model):
     languages = models.CharField(max_length=2, choices=[
         ('en', _('English')),
         ('es', _('Spanish')),
+        ('uk', _('Ukrainian'))
     ], default='es')
     content = models.TextField()
 

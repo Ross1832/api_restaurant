@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+from django.http import JsonResponse
 from rest_framework import generics
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 
@@ -15,10 +18,6 @@ class MultilingualTextList(generics.ListCreateAPIView):
     serializer_class = MultilingualTextSerializer
 
     def get_queryset(self):
-        """
-        Optionally restricts the returned translations to a given language,
-        by filtering against a `languages` query parameter in the URL.
-        """
         queryset = MultilingualText.objects.all()
         language = self.request.query_params.get('languages', None)
         if language is not None:
@@ -57,3 +56,14 @@ class CustomObtainAuthToken(APIView):
         token, _ = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})
 
+
+def get_translations(request):
+    translations = MultilingualText.objects.all()
+    serializer = MultilingualTextSerializer(translations, many=True)
+
+    data = defaultdict(lambda: defaultdict(dict))
+
+    for item in serializer.data:
+        data[item['languages']]['translation'][item['key']] = item['content']
+
+    return JsonResponse(data)
