@@ -1,5 +1,3 @@
-SECRET_KEY=django-insecure-d4=-gqiwam_+=_!ty(9(ut9qg-gink__p5jxpqwvr(=*ga=x#f
-DEBUG=True
 DATABASE_NAME=postgres
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgresql
