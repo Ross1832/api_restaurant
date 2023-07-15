@@ -19,5 +19,10 @@ services:
 #    command: bash
 #    tty: true
 
+  frontend:
+    build: ../next-creatiff-app
+    ports:
+      - "3000:3000"
+
 volumes:
   postgres:
