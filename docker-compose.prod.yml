@@ -20,7 +20,7 @@ services:
 #    tty: true
 
   frontend:
-    build: ../next-creatiff-app
+    build: ../frontend
     ports:
       - "3000:3000"
 
