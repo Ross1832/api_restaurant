@@ -16,7 +16,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 
 DEBUG = str_to_bool(os.environ.get('DEBUG', 'False'))
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,creatiff.es').split(',')
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -147,7 +148,15 @@ LANGUAGES = [
     ('uk', 'Ukrainian')
 ]
 
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+CORS_ORIGIN_WHITELIST = [
+    "http://creatiff.es",
+    "http://www.creatiff.es",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://creatiff.es",
+    "http://www.creatiff.es",
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+1
