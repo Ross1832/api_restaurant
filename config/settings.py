@@ -16,7 +16,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 
 DEBUG = str_to_bool(os.environ.get('DEBUG', 'False'))
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,creatiff.es').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend,creatiff.es').split(',')
+
 
 
 INSTALLED_APPS = [
@@ -148,15 +149,21 @@ LANGUAGES = [
     ('uk', 'Ukrainian')
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    "http://creatiff.es",
-    "http://www.creatiff.es",
-]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 CSRF_TRUSTED_ORIGINS = [
     "http://creatiff.es",
+    "https://creatiff.es",
     "http://www.creatiff.es",
+    "https://www.creatiff.es",
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-1
+CORS_ORIGIN_WHITELIST = [
+    "http://creatiff.es",
+    "https://creatiff.es",
+    "http://www.creatiff.es",
+    "https://www.creatiff.es",
+]
