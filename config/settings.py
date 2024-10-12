@@ -1,23 +1,27 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+
+secret_key_path = '/run/secrets/secret_key'
+if os.path.exists(secret_key_path):
+    with open(secret_key_path) as f:
+        SECRET_KEY = f.read().strip()
+else:
+    SECRET_KEY = env('SECRET_KEY')
 
 
-def str_to_bool(value):
-    return value.lower() in ('true', '1')
-
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
-
-DEBUG = str_to_bool(os.environ.get('DEBUG', 'False'))
-
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend,creatiff.es').split(',')
-
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 INSTALLED_APPS = [
@@ -72,11 +76,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', 'postgres'),
-        'USER': os.getenv('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgresql'),
-        'HOST': os.getenv('DATABASE_HOST', 'db'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
