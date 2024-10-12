@@ -1,5 +1,9 @@
 FROM python:3.9-slim
 
+# Установка зависимостей для psycopg2
+RUN apt-get update && apt-get install -y \
+    libpq-dev gcc
+
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
