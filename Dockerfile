@@ -15,5 +15,8 @@ RUN apt-get update && \
 
 COPY . .
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Expose the port that Gunicorn will run on
+EXPOSE 8000
 
+# Use Gunicorn to run the application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
