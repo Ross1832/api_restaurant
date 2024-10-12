@@ -149,3 +149,5 @@ LANGUAGES = [
 
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
