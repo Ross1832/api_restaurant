@@ -8,15 +8,17 @@ WORKDIR /code
 COPY requirements.txt .
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip install --upgrade pip && \
+    apt-get install -y --no-install-recommends \
+        gcc \
+        libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+
+RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Expose the port that Gunicorn will run on
 EXPOSE 8000
 
-# Use Gunicorn to run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "your_django_project.wsgi:application"]
